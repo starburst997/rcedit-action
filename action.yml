@@ -89,9 +89,9 @@ runs:
             if ($file.Name -eq $specificFile) {
                 if ($flag -eq "true") { $rceditArgs += "--set-icon", "$icoFile" }
                 if (![String]::IsNullOrEmpty($fileDescription)) { $rceditArgs += "--set-version-string", "FileDescription", "$fileDescription" }
-                if (![String]::IsNullOrEmpty($fileVersion)) { $rceditArgs += "--set-version-string", "FileVersion", "$fileVersion" }
+                if (![String]::IsNullOrEmpty($fileVersion)) { $rceditArgs += "--set-file-version", "$fileVersion" }
                 if (![String]::IsNullOrEmpty($productName)) { $rceditArgs += "--set-version-string", "ProductName", "$productName" }
-                if (![String]::IsNullOrEmpty($productVersion)) { $rceditArgs += "--set-version-string", "ProductVersion", "$productVersion" }
+                if (![String]::IsNullOrEmpty($productVersion)) { $rceditArgs += "--set-product-version", "$productVersion" }
             }
 
             & rcedit $file.FullName $rceditArgs
