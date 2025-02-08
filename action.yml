@@ -76,7 +76,8 @@ runs:
         $productName = "${{ inputs.product-name }}"
         $productVersion = "${{ inputs.product-version }}"
 
-        $targetFiles = Get-ChildItem -Path $dir -Recurse -File | Where-Object { $fileTypes -contains $_.Extension }
+        #$targetFiles = Get-ChildItem -Path $dir -Recurse -File | Where-Object { $fileTypes -contains $_.Extension }
+        $targetFiles = Get-ChildItem -Path $dir -File | Where-Object { $fileTypes -contains $_.Extension }
 
         foreach ($file in $targetFiles) {
             $rceditArgs = @()
