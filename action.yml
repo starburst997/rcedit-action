@@ -80,22 +80,22 @@ runs:
         $targetFiles = Get-ChildItem -Path $dir -File | Where-Object { $fileTypes -contains $_.Extension }
 
         foreach ($file in $targetFiles) {
-            $rceditArgs = @()
-
-            if (![String]::IsNullOrEmpty($comment)) { $rceditArgs += "--set-version-string", "Comments", "$comment" }
-            if (![String]::IsNullOrEmpty($companyName)) { $rceditArgs += "--set-version-string", "CompanyName", "$companyName" }
-            if (![String]::IsNullOrEmpty($legalCopyright)) { $rceditArgs += "--set-version-string", "LegalCopyright", "$legalCopyright" }
-            if (![String]::IsNullOrEmpty($legalTrademarks)) { $rceditArgs += "--set-version-string", "LegalTrademarks", "$legalTrademarks" }
-
             if ($file.Name -eq $specificFile) {
+                $rceditArgs = @()
+
+                if (![String]::IsNullOrEmpty($comment)) { $rceditArgs += "--set-version-string", "Comments", "$comment" }
+                if (![String]::IsNullOrEmpty($companyName)) { $rceditArgs += "--set-version-string", "CompanyName", "$companyName" }
+                if (![String]::IsNullOrEmpty($legalCopyright)) { $rceditArgs += "--set-version-string", "LegalCopyright", "$legalCopyright" }
+                if (![String]::IsNullOrEmpty($legalTrademarks)) { $rceditArgs += "--set-version-string", "LegalTrademarks", "$legalTrademarks" }
+                
                 if ($flag -eq "true") { $rceditArgs += "--set-icon", "$icoFile" }
                 if (![String]::IsNullOrEmpty($fileDescription)) { $rceditArgs += "--set-version-string", "FileDescription", "$fileDescription" }
                 if (![String]::IsNullOrEmpty($fileVersion)) { $rceditArgs += "--set-file-version", "$fileVersion" }
                 if (![String]::IsNullOrEmpty($productName)) { $rceditArgs += "--set-version-string", "ProductName", "$productName" }
                 if (![String]::IsNullOrEmpty($productVersion)) { $rceditArgs += "--set-product-version", "$productVersion" }
+                
+                & rcedit $file.FullName $rceditArgs
             }
-
-            & rcedit $file.FullName $rceditArgs
         }
       shell: pwsh
 
